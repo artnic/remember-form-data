@@ -1,36 +1,9 @@
-(function (jQuery) {
-    jQuery.fn.deserialize = function (data) {
-        var f = jQuery(this),
-            map = {},
-            find = function (selector) { return f.is("form") ? f.find(selector) : f.filter(selector); };
-        //Get map of values
-        jQuery.each(data.split("&"), function () {
-            var nv = this.split("="),
-                n = decodeURIComponent(nv[0]),
-                v = nv.length > 1 ? decodeURIComponent(nv[1]) : null;
-            if (!(n in map)) {
-                map[n] = [];
-            }
-            map[n].push(v);
-        })
-        //Set values for all form elements in the data
-        jQuery.each(map, function (n, v) {
-            find("[name='" + n + "']").val(v);
-        })
-        //Clear all form elements not in form data
-        find("input:text,select,textarea").each(function () {
-            if (!($(this).attr("name") in map)) {
-                $(this).val("");
-            }
-        })
-        find("input:checkbox:checked,input:radio:checked").each(function () {
-            if (!($(this).attr("name") in map)) {
-                this.checked = false;
-            }
-        })
-        return this;
-    };
-})(jQuery);
+ /*
+ * Remember form data; This uses jquery.deserialize.js found at https://github.com/kflorence/jquery-deserialize and included here
+ * @author Rafael Cintra - http://artnic.io
+ * @website https://github.com/artnic/jquery-remember-form-data/
+ * Licensed under the MIT License
+ */
 
 (function ( $ ) {
 
@@ -85,7 +58,7 @@
         var workingform = $(this);
 
         $(this).find(':input').each(function(index, el) {
-        	$(this).on('blur', el, function(event) {
+        	$(this).on('change', el, function(event) {
         		cookies.set(settings.name, workingform.serialize());
         	});
         });
