@@ -48,21 +48,39 @@
     $.fn.rememberdata = function( options ) {
         var settings = $.extend({
             name: "datatoremember",
+            refresh: false,
         }, options );
 
-        cdata = cookies.get(settings.name);
-        if(cdata) {
-        	$(this).deserialize(cdata);
-        }
 
         var workingform = $(this);
 
-        $(this).find(':input').each(function(index, el) {
-        	$(this).on('change', el, function(event) {
-        		cookies.set(settings.name, workingform.serialize());
-        	});
-        });
+        if(settings.refresh) {
+            cookies.set(settings.name, workingform.serialize());
+        }
+        else {
+            cdata = cookies.get(settings.name);
+            if(cdata) {
+                $(this).deserialize(cdata);
+            }
 
+
+            $(this).find(':input').each(function(index, el) {
+                $(this).on('change', el, function(event) {
+                    cookies.set(settings.name, workingform.serialize());
+                });
+            });
+        }
+
+        return this;
+    };
+
+    $.fn.forgetdata = function( options ) {
+        var settings = $.extend({
+            name: "datatoremember",
+        }, options );
+
+        cdata = cookies.remove(settings.name);
+       
         return this;
     };
 }( jQuery ));
