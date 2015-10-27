@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Test saveform cookie</title>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="jquery.remember-form-data.js"></script>
+
+<form action="" id="dontforgetme">
+Name:
+<input type="text" name="name">
+<br />
+
+Gender: <input type="radio" name="gender" value="male" id="option1"> Male
+ <input type="radio" name="gender" value="female" id="option2"> Female
+<br />
+Fruits:
+<select name="fruits">
+	<option value="orange">Orange</option>
+	<option value="apple">Apple</option>
+</select>
+<br />
+<input type="submit" value="Test">
+
+</form>
+
+<script type="text/javascript">
+
+$('#dontforgetme').rememberdata({
+	name: 'rememberme'
+});
+
+</script>
